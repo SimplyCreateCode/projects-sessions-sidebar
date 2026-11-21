@@ -1,0 +1,39 @@
+{
+  "$schema": "https://raw.githubusercontent.com/stablyai/orca/main/docs/schemas/plugins/orca-plugin.v2.schema.json",
+  "manifestVersion": 2,
+  "id": "projects-sessions-sidebar",
+  "name": "Projects & Sessions",
+  "version": "0.1.2",
+  "description": "Your projects with every agent session under them, live or past: status, title and age, newest first. Click to jump to a live session or resume a closed one; + starts a new one in the project.",
+  "license": "MIT",
+  "engines": {
+    "orca": ">=1.4.260"
+  },
+  "execution": "trusted-worker",
+  "pluginApi": 1,
+  "main": "src/worker.ts",
+  "contributes": {
+    "panels": [
+      {
+        "id": "projects-sessions",
+        "title": "Projects & Sessions",
+        "icon": "layers",
+        "entry": "src/panel.tsx",
+        "ui": "components"
+      }
+    ],
+    "events": [
+      { "on": "agent.status.changed" },
+      { "on": "workspace.created" },
+      { "on": "workspace.removed" }
+    ]
+  },
+  "capabilities": [
+    { "kind": "workspace:read" },
+    { "kind": "workspace:write" },
+    { "kind": "agent:read" },
+    { "kind": "history:read" },
+    { "kind": "agent:launch" },
+    { "kind": "terminal:send" }
+  ]
+}
